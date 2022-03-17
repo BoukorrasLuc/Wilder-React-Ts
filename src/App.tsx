@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// Packages
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+// Components
+import Header from "./components/Header/Header";
+import Wilders from "./components/Wilders/Wilders";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  const [wilders, setWilders] = useState<Array<string>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get("http://localhost:3000/api/wilder/read");
+        setWilders(result.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return isLoading ? (
+    <div>is Loading ...</div>
+  ) : (
+    <>
+      <Header />
+      <Wilders wilders={wilders} setWilders={setWilders} />
+    </>
   );
 }
 
