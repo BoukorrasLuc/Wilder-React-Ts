@@ -4,11 +4,22 @@ import "./modalWilderUpdate.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+export interface WilderModel {
+  _id: string;
+  name: string;
+  city: string;
+  skills: SkillsModel[];
+}
+interface SkillsModel {
+  title: string;
+  votes: string;
+}
+
 interface Props {
   reveleWilderUpdate: boolean;
   cache: Function;
   changeReveleWilderUpdate: Function;
-  currentWilder: any;
+  currentWilder: null | WilderModel;
   setWilders: Function;
 }
 
@@ -38,7 +49,7 @@ const ModalWilderUpdate = ({
       event.preventDefault();
 
       await axios.put(
-        `http://localhost:3000/api/wilder/update/${currentWilder._id}`,
+        `http://localhost:3000/api/wilder/update/${currentWilder?._id}`,
         {
           name: name,
           city: city,

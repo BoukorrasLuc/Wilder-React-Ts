@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import WildersCards from "../WildersCards/WildersCards";
 import LogiqueModale from "../Modals/LogiqueModal";
 import ModalWilderNew from "../Modals/ModalWilderNew";
-import ModalWilderUpdate from "../Modals/ModalWilderUpdate";
+import ModalWilderUpdate, { WilderModel } from "../Modals/ModalWilderUpdate";
 
 interface Props {
   wilders: string[];
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Wilders = ({ wilders, setWilders }: Props) => {
-  const [currentWilder, setCurrentWilder] = useState<null>(null);
+  const [currentWilder, setCurrentWilder] = useState<null | WilderModel>(null);
 
   useEffect(() => {}, [currentWilder]);
 
